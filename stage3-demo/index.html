@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#F4EFE6" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1A1917" media="(prefers-color-scheme: dark)">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="QP Demo">
+    <meta name="description" content="A private journal kept on this device.">
+    <title>Quiet Pages (Demo)</title>
+    <link rel="manifest" href="./manifest.webmanifest?v=3">
+    <link rel="icon" type="image/png" href="./icons/icon-192.png?v=3">
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png?v=3">
+    <link rel="stylesheet" href="./css/app.css?v=3">
+    <script type="module" src="./js/app.js?v=3"></script>
+  </head>
+  <body>
+    <noscript><style>#splash{display:none}</style>Quiet Pages needs JavaScript to encrypt and store entries on this device.</noscript>
+
+    <div id="splash" class="splash">
+      <svg class="mark" viewBox="0 0 32 32" width="72" height="72" aria-hidden="true">
+        <rect x="1" y="1" width="30" height="30" rx="8" fill="#5C7A68"/>
+        <rect x="7.2" y="13.2" width="7.4" height="10" rx="1.5" fill="#F7F3EB"/>
+        <rect x="16.6" y="13.2" width="7.4" height="10" rx="1.5" fill="#E8E0D2"/>
+        <rect x="15.4" y="13.2" width="1.2" height="10" fill="#3D5A4A"/>
+        <path fill="#F4EFE6" d="M23.2 7.1c.15 1.35-.15 2.35-1 3.05 1.15.25 2.35-.3 2.9-1.4.4-.9.3-1.9-.35-2.55-.5-.45-1.1-.4-1.55.1z"/>
+      </svg>
+      <p class="splash-name">Quiet Pages</p>
+    </div>
+
+    <main id="screen-setup" class="screen" data-screen="setup" hidden>
+      <div class="brand">
+        <svg class="mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+          <rect x="1" y="1" width="30" height="30" rx="8" fill="#5C7A68"/>
+          <rect x="7.2" y="13.2" width="7.4" height="10" rx="1.5" fill="#F7F3EB"/>
+          <rect x="16.6" y="13.2" width="7.4" height="10" rx="1.5" fill="#E8E0D2"/>
+          <rect x="15.4" y="13.2" width="1.2" height="10" fill="#3D5A4A"/>
+          <path fill="#F4EFE6" d="M23.2 7.1c.15 1.35-.15 2.35-1 3.05 1.15.25 2.35-.3 2.9-1.4.4-.9.3-1.9-.35-2.55-.5-.45-1.1-.4-1.55.1z"/>
+        </svg>
+        <h1 class="app-name">Quiet Pages</h1>
+      </div>
+      <p class="lede">A private journal kept on this device.</p>
+      <form id="setup-form" class="stack" novalidate>
+        <div class="field">
+          <label for="setup-pass">Passphrase</label>
+          <div class="field-row">
+            <input id="setup-pass" data-testid="setup-pass" name="passphrase" type="password" autocomplete="new-password" minlength="8" required>
+            <button type="button" class="toggle-vis" data-toggle-password="setup-pass" aria-label="Show passphrase">Show</button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="setup-confirm">Confirm passphrase</label>
+          <div class="field-row">
+            <input id="setup-confirm" data-testid="setup-confirm" name="confirm" type="password" autocomplete="new-password" minlength="8" required>
+            <button type="button" class="toggle-vis" data-toggle-password="setup-confirm" aria-label="Show passphrase">Show</button>
+          </div>
+        </div>
+        <div class="warning" role="note">
+          <p>If you forget your passphrase, your entries cannot be recovered. There is no reset and no recovery.</p>
+          <label class="ack-label">
+            <input id="setup-ack" data-testid="setup-ack" type="checkbox">
+            <span>I understand there is no recovery.</span>
+          </label>
+        </div>
+        <p id="setup-error" class="status error" role="status" aria-live="polite"></p>
+        <button id="setup-submit" data-testid="setup-submit" class="btn btn-primary" type="submit" disabled>Create journal</button>
+      </form>
+      <p class="footer">Your entries are encrypted on this device and never uploaded.</p>
+    </main>
+
+    <main id="screen-lock" class="screen" data-screen="lock" hidden>
+      <div class="brand">
+        <svg class="mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+          <rect x="1" y="1" width="30" height="30" rx="8" fill="#5C7A68"/>
+          <rect x="7.2" y="13.2" width="7.4" height="10" rx="1.5" fill="#F7F3EB"/>
+          <rect x="16.6" y="13.2" width="7.4" height="10" rx="1.5" fill="#E8E0D2"/>
+          <rect x="15.4" y="13.2" width="1.2" height="10" fill="#3D5A4A"/>
+          <path fill="#F4EFE6" d="M23.2 7.1c.15 1.35-.15 2.35-1 3.05 1.15.25 2.35-.3 2.9-1.4.4-.9.3-1.9-.35-2.55-.5-.45-1.1-.4-1.55.1z"/>
+        </svg>
+        <h1 class="app-name">Quiet Pages</h1>
+      </div>
+      <p class="lede">Enter your passphrase to open your journal.</p>
+      <form id="unlock-form" class="stack" novalidate>
+        <div class="field">
+          <label for="unlock-pass">Passphrase</label>
+          <div class="field-row">
+            <input id="unlock-pass" data-testid="unlock-pass" name="passphrase" type="password" autocomplete="current-password" required>
+            <button type="button" class="toggle-vis" data-toggle-password="unlock-pass" aria-label="Show passphrase">Show</button>
+          </div>
+        </div>
+        <p id="unlock-error" data-testid="unlock-error" class="status error" role="status" aria-live="polite"></p>
+        <button id="unlock-submit" data-testid="unlock-submit" class="btn btn-primary" type="submit">Unlock</button>
+      </form>
+      <p class="footer">Your entries are encrypted on this device and never uploaded.</p>
+    </main>
+
+    <main id="screen-list" class="screen" data-screen="list" hidden>
+      <header class="topbar">
+        <div class="brand">
+          <svg class="mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+            <rect x="1" y="1" width="30" height="30" rx="8" fill="#5C7A68"/>
+            <rect x="7.2" y="13.2" width="7.4" height="10" rx="1.5" fill="#F7F3EB"/>
+            <rect x="16.6" y="13.2" width="7.4" height="10" rx="1.5" fill="#E8E0D2"/>
+            <rect x="15.4" y="13.2" width="1.2" height="10" fill="#3D5A4A"/>
+            <path fill="#F4EFE6" d="M23.2 7.1c.15 1.35-.15 2.35-1 3.05 1.15.25 2.35-.3 2.9-1.4.4-.9.3-1.9-.35-2.55-.5-.45-1.1-.4-1.55.1z"/>
+          </svg>
+          <h1 class="app-name">Quiet Pages</h1>
+          <span id="demo-badge" data-testid="demo-badge" class="demo-badge" hidden>Demo</span>
+        </div>
+        <div class="top-actions">
+          <button id="settings-btn" data-testid="settings-btn" class="btn btn-lock" type="button">Settings</button>
+          <button id="lock-btn" data-testid="lock-btn" class="btn btn-lock" type="button">Lock</button>
+        </div>
+      </header>
+      <div class="segmented" role="tablist" aria-label="Journal view">
+        <button id="view-list" data-testid="view-list" class="seg" type="button" role="tab" aria-selected="true">List</button>
+        <button id="view-calendar" data-testid="view-calendar" class="seg" type="button" role="tab" aria-selected="false">Calendar</button>
+      </div>
+      <div class="search-row">
+        <label class="sr-only" for="search-input">Search entries</label>
+        <input id="search-input" data-testid="search-input" type="search" placeholder="Search titles, text, or mood" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
+        <button id="search-clear" data-testid="search-clear" class="search-clear" type="button" aria-label="Clear search">×</button>
+      </div>
+      <div id="backup-banner" data-testid="backup-banner" class="banner" hidden>
+        <p>No recent backup of this journal.</p>
+        <div class="banner-actions">
+          <button id="backup-banner-open" class="btn btn-primary" type="button">Back up</button>
+          <button id="backup-banner-dismiss" data-testid="backup-banner-dismiss" class="btn btn-lock banner-x" type="button" aria-label="Dismiss">×</button>
+        </div>
+      </div>
+      <button id="new-entry" data-testid="new-entry" class="btn btn-primary" type="button">New entry</button>
+      <div id="demo-limit-note" data-testid="demo-limit-note" class="limit-note" hidden>
+        <p>The demo keeps up to 10 entries. You can still read, edit, delete and export them, and import that backup into the full version.</p>
+        <a id="get-full-link" data-testid="get-full-link" href="#get-full-version">Get the full version</a>
+      </div>
+      <div id="list-view">
+        <div id="entry-list" data-testid="entry-list" class="entry-list"></div>
+        <div id="empty-state" data-testid="empty-state" class="empty-state" hidden>
+          <p class="empty-title">Nothing written yet.</p>
+          <p>Tap New entry when you want to start a page.</p>
+        </div>
+        <p id="search-empty" data-testid="search-empty" class="empty" hidden>No matches</p>
+      </div>
+      <div id="calendar-view" hidden>
+        <div class="cal-nav">
+          <button id="cal-prev" data-testid="cal-prev" class="btn btn-lock" type="button" aria-label="Previous month">Prev</button>
+          <h2 id="cal-title" data-testid="cal-title" class="cal-title"></h2>
+          <button id="cal-next" data-testid="cal-next" class="btn btn-lock" type="button" aria-label="Next month">Next</button>
+        </div>
+        <button id="cal-today" data-testid="cal-today" class="btn btn-secondary" type="button">Today</button>
+        <div id="cal-grid" class="cal-grid" role="grid" aria-label="Month"></div>
+        <div id="cal-day-entries" data-testid="cal-day-entries" class="entry-list"></div>
+      </div>
+      <p class="footer">Your entries are encrypted on this device and never uploaded.</p>
+    </main>
+
+    <main id="screen-editor" class="screen screen-editor" data-screen="editor" hidden>
+      <form id="editor-form" class="editor-form" novalidate>
+        <div class="editor-bar">
+          <button id="cancel-entry" data-testid="cancel-entry" class="btn btn-secondary btn-inline" type="button">Cancel</button>
+          <h1 id="editor-heading" class="editor-title">New entry</h1>
+          <button id="editor-lock" data-testid="lock-btn" class="btn btn-lock editor-lock" type="button">Lock</button>
+          <button id="save-entry" data-testid="save-entry" class="btn btn-primary btn-inline" type="submit">Save</button>
+        </div>
+        <div class="editor-fields stack">
+          <p id="draft-restored" data-testid="draft-restored" class="draft-note" hidden>We kept your unsaved changes.</p>
+          <p id="editor-error" class="status error" role="status" aria-live="polite"></p>
+          <div class="field">
+            <label class="field-label" for="entry-date">Date</label>
+            <input id="entry-date" data-testid="entry-date" name="date" type="date" required>
+          </div>
+          <div class="field">
+            <label class="field-label" for="entry-title">Title</label>
+            <input id="entry-title" data-testid="entry-title" name="title" type="text" maxlength="200" autocomplete="off">
+          </div>
+          <div class="field">
+            <span class="field-label" id="mood-label">Mood</span>
+            <div id="moods" class="moods" role="group" aria-labelledby="mood-label"></div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="entry-body">Entry</label>
+            <textarea id="entry-body" data-testid="entry-body" name="body" rows="8"></textarea>
+          </div>
+          <button id="delete-entry" data-testid="delete-entry" class="btn btn-ghost" type="button" hidden>Delete</button>
+          <p class="footer">Your entries are encrypted on this device and never uploaded.</p>
+        </div>
+      </form>
+    </main>
+
+    <main id="screen-settings" class="screen screen-sub" data-screen="settings" hidden>
+      <header class="topbar topbar-sub">
+        <button id="settings-back" data-testid="settings-back" class="btn btn-lock" type="button">Back</button>
+        <h1 class="app-name">Settings</h1>
+        <span class="topbar-end" aria-hidden="true"></span>
+      </header>
+
+      <section class="panel">
+        <h2>Auto-lock</h2>
+        <p class="hint">Lock the journal after you stop using it.</p>
+        <div class="field">
+          <label for="autolock-select">Lock after</label>
+          <select id="autolock-select" data-testid="autolock-select">
+            <option value="1">1 minute</option>
+            <option value="5" selected>5 minutes</option>
+            <option value="15">15 minutes</option>
+            <option value="30">30 minutes</option>
+          </select>
+        </div>
+      </section>
+
+      <section id="backup-section" class="panel">
+        <h2>Backup</h2>
+        <p class="hint">Export an encrypted copy of your entries. The file stays encrypted, and you need a passphrase to read it. Import does not change the passphrase on this device.</p>
+        <button id="export-backup" data-testid="export-backup" class="btn btn-primary" type="button">Export backup</button>
+        <p id="export-status" class="status" role="status" aria-live="polite"></p>
+
+        <h3>Import backup</h3>
+        <div class="field">
+          <label for="import-file">Backup file</label>
+          <input id="import-file" data-testid="import-file" type="file" accept=".qpbackup,application/json,.json">
+        </div>
+        <div class="field">
+          <label for="import-pass">Passphrase for this backup</label>
+          <input id="import-pass" data-testid="import-pass" type="password" autocomplete="off">
+        </div>
+        <fieldset class="mode-fieldset">
+          <legend>When an entry already exists</legend>
+          <label class="choice">
+            <input type="radio" name="import-mode" value="merge" data-testid="import-mode-merge" checked>
+            <span>Merge — keep the newer copy</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="import-mode" value="replace" data-testid="import-mode-replace">
+            <span>Replace — use only the backup</span>
+          </label>
+        </fieldset>
+        <p id="import-error" data-testid="import-error" class="status error" role="status" aria-live="polite" hidden></p>
+        <p id="import-status" data-testid="import-status" class="status" role="status" aria-live="polite" hidden></p>
+        <button id="import-submit" data-testid="import-submit" class="btn btn-secondary" type="button">Import backup</button>
+      </section>
+
+      <section class="panel">
+        <h2>Change passphrase</h2>
+        <form id="cp-form" class="stack" novalidate>
+          <div class="field">
+            <label for="cp-current">Current passphrase</label>
+            <input id="cp-current" data-testid="cp-current" type="password" autocomplete="current-password">
+          </div>
+          <div class="field">
+            <label for="cp-new">New passphrase</label>
+            <input id="cp-new" data-testid="cp-new" type="password" autocomplete="new-password" minlength="8">
+          </div>
+          <div class="warning" role="note">
+            <p>If you forget your passphrase, your entries cannot be recovered. There is no reset and no recovery.</p>
+          </div>
+          <div class="field">
+            <label for="cp-confirm">Confirm new passphrase</label>
+            <input id="cp-confirm" data-testid="cp-confirm" type="password" autocomplete="new-password" minlength="8">
+          </div>
+          <p id="cp-status" data-testid="cp-status" class="status" role="status" aria-live="polite"></p>
+          <button id="cp-submit" data-testid="cp-submit" class="btn btn-primary" type="submit">Change passphrase</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Guides</h2>
+        <div class="stack">
+          <button id="help-btn" data-testid="help-btn" class="btn btn-secondary" type="button">How your data is kept</button>
+          <button id="privacy-btn" data-testid="privacy-btn" class="btn btn-secondary" type="button">Privacy</button>
+          <button id="about-btn" data-testid="about-btn" class="btn btn-secondary" type="button">About</button>
+        </div>
+      </section>
+
+      <p class="footer">Your entries are encrypted on this device and never uploaded.</p>
+    </main>
+
+    <main id="screen-help" class="screen screen-sub" data-screen="help" hidden>
+      <header class="topbar topbar-sub">
+        <button id="help-back" data-testid="screen-back" class="btn btn-lock" type="button">Back</button>
+        <h1 class="app-name">How your data is kept</h1>
+        <span class="topbar-end" aria-hidden="true"></span>
+      </header>
+      <div class="prose">
+        <p>Each entry is encrypted in this browser with your passphrase before it is saved. Quiet Pages stretches the passphrase with PBKDF2-SHA256, 600,000 rounds, then encrypts with AES-256-GCM through the browser's Web Crypto. Only that encrypted data is written to this browser. The passphrase is never saved. Nothing is uploaded. After the app is on this device, it works offline.</p>
+        <div class="warning" role="note">
+          <p>If you forget your passphrase, your entries cannot be recovered. There is no reset and no recovery. Quiet Pages cannot read them or hand them back.</p>
+        </div>
+        <p>A backup file is encrypted too. Opening it takes the passphrase you were using when that backup was exported. If you change the passphrase later, older backup files still need the older passphrase.</p>
+        <p class="demo-only" hidden>The demo keeps up to 10 entries so it stays small. That is a convenience limit, not copy protection. You can read, edit, delete, and export those entries, then import the backup into the full version.</p>
+        <h2>If the journal locks while you are writing</h2>
+        <p>The unsaved page is encrypted and kept on this device. The next time you unlock, that page opens again. Saving or cancelling removes the saved copy.</p>
+        <h2>Install to your Home Screen</h2>
+        <h3>iPhone and iPad (Safari)</h3>
+        <ol>
+          <li>Tap the Share button.</li>
+          <li>Tap Add to Home Screen.</li>
+          <li>Tap Add.</li>
+        </ol>
+        <h3>Android (Chrome)</h3>
+        <ol>
+          <li>Tap the menu button.</li>
+          <li>Tap Install app, or Add to Home screen.</li>
+          <li>Confirm.</li>
+        </ol>
+        <h3>Desktop (Chrome or Edge)</h3>
+        <ol>
+          <li>Look for the install icon in the address bar, or open the browser menu.</li>
+          <li>Choose Install Quiet Pages.</li>
+        </ol>
+        <h2>Browser storage</h2>
+        <p>Safari can delete stored website data, especially for a site you have not added to the Home Screen. Any browser can delete it if you clear website data. Export a backup regularly so a cleared browser is not the only copy.</p>
+      </div>
+      <p class="footer">Your entries are encrypted on this device and never uploaded.</p>
+    </main>
+
+    <main id="screen-privacy" class="screen screen-sub" data-screen="privacy" hidden>
+      <header class="topbar topbar-sub">
+        <button id="privacy-back" data-testid="screen-back" class="btn btn-lock" type="button">Back</button>
+        <h1 class="app-name">Privacy</h1>
+        <span class="topbar-end" aria-hidden="true"></span>
+      </header>
+      <div class="prose">
+        <p>Effective date: [date placeholder]</p>
+        <p>Quiet Pages collects no personal data. It has no analytics, ads, or tracking, and it makes no network requests.</p>
+        <p>Entries are stored only on your device, in your browser's local storage (IndexedDB), encrypted. We can't see, recover, or delete your entries. There is no account and no server copy.</p>
+        <p>Backups are files you control. They stay encrypted, and reading one takes the passphrase used when that file was exported.</p>
+        <p>Quiet Pages is not directed at children under 13, and it does not knowingly collect personal information from children.</p>
+        <h2>Changes to this policy</h2>
+        <p>If this policy changes, the effective date on this page will be updated.</p>
+        <h2>Contact</h2>
+        <p>Contact: [contact email placeholder — to be added before publishing]</p>
+      </div>
+      <p class="footer">Your entries are encrypted on this device and never uploaded.</p>
+    </main>
+
+    <main id="screen-about" class="screen screen-sub" data-screen="about" hidden>
+      <header class="topbar topbar-sub">
+        <button id="about-back" data-testid="screen-back" class="btn btn-lock" type="button">Back</button>
+        <h1 class="app-name">About</h1>
+        <span class="topbar-end" aria-hidden="true"></span>
+      </header>
+      <div class="prose">
+        <p class="about-name">Quiet Pages</p>
+        <p id="app-version" data-testid="app-version" class="version"></p>
+        <p class="credit">A private journal kept on this device.</p>
+        <p class="credit">Made with AI assistance (Grok Build)</p>
+        <p class="credit">By BlueWater78</p>
+        <p class="demo-only credit" hidden>The 10-entry limit in the demo is a convenience limit, not copy protection.</p>
+        <div class="stack">
+          <button id="about-help" class="btn btn-secondary" type="button">How your data is kept</button>
+          <button id="about-privacy" class="btn btn-secondary" type="button">Privacy</button>
+        </div>
+      </div>
+      <p class="footer">Your entries are encrypted on this device and never uploaded.</p>
+    </main>
+
+    <div id="dialog-replace" class="overlay" hidden>
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="replace-title">
+        <h2 id="replace-title">Replace all entries?</h2>
+        <p>Replace all entries on this device with the backup? This can't be undone.</p>
+        <div class="dialog-actions">
+          <button id="confirm-replace" data-testid="confirm-replace" class="btn btn-danger" type="button">Replace</button>
+          <button id="cancel-replace" data-testid="cancel-replace" class="btn btn-secondary" type="button">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="dialog-delete" class="overlay" hidden>
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="delete-title">
+        <h2 id="delete-title">Delete this entry?</h2>
+        <p>Delete this entry? This can't be undone.</p>
+        <div class="dialog-actions">
+          <button id="confirm-delete" data-testid="confirm-delete" class="btn btn-danger" type="button">Delete</button>
+          <button id="cancel-delete" data-testid="cancel-delete" class="btn btn-secondary" type="button">Keep</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

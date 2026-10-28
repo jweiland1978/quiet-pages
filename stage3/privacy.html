@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#F4EFE6" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1A1917" media="(prefers-color-scheme: dark)">
+    <title>Privacy — Quiet Pages</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f4efe6;
+        --paper: #fbfaf6;
+        --ink: #2a2825;
+        --muted: #6f6a63;
+        --accent: #5c7a68;
+        --line: #e4dcd0;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #1a1917;
+          --paper: #242321;
+          --ink: #e7e3db;
+          --muted: #a8a39a;
+          --accent: #8aa894;
+          --line: #3a3834;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      main {
+        width: min(100%, 40rem);
+        margin: 0 auto;
+        padding: max(1.25rem, env(safe-area-inset-top)) max(1.25rem, env(safe-area-inset-right)) max(2rem, env(safe-area-inset-bottom)) max(1.25rem, env(safe-area-inset-left));
+      }
+      .back {
+        margin: 0 0 1rem;
+      }
+      a {
+        color: var(--accent);
+        font-weight: 600;
+      }
+      h1 {
+        margin: 0.2rem 0 0.4rem;
+        font-size: 1.6rem;
+        letter-spacing: -0.02em;
+      }
+      h2 {
+        margin: 1.4rem 0 0.35rem;
+        font-size: 1.05rem;
+      }
+      p { margin: 0.4rem 0; }
+      .mark { color: var(--accent); vertical-align: middle; }
+      .lede { color: var(--muted); margin-top: 0; }
+      .panel {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 0.9rem 1rem;
+        margin: 1rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="back"><a href="./index.html?v=3">Back to Quiet Pages</a></p>
+      <svg class="mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+        <rect x="1" y="1" width="30" height="30" rx="8" fill="#5C7A68"/>
+        <rect x="7.2" y="13.2" width="7.4" height="10" rx="1.5" fill="#F7F3EB"/>
+        <rect x="16.6" y="13.2" width="7.4" height="10" rx="1.5" fill="#E8E0D2"/>
+        <rect x="15.4" y="13.2" width="1.2" height="10" fill="#3D5A4A"/>
+        <path fill="#F4EFE6" d="M23.2 7.1c.15 1.35-.15 2.35-1 3.05 1.15.25 2.35-.3 2.9-1.4.4-.9.3-1.9-.35-2.55-.5-.45-1.1-.4-1.55.1z"/>
+      </svg>
+      <h1>Privacy</h1>
+      <p class="lede">Effective date: [date placeholder]</p>
+      <p>Quiet Pages collects no personal data. It has no analytics, ads, or tracking, and it makes no network requests.</p>
+      <p>Entries are stored only on your device, in your browser's local storage (IndexedDB), encrypted with a key that stays in memory while the journal is unlocked. The passphrase is never saved.</p>
+      <div class="panel">
+        <p>We can't see, recover, or delete your entries. There is no account and no server copy. If you forget the passphrase, nobody can open the journal for you.</p>
+      </div>
+      <h2>Backups</h2>
+      <p>Backups are files you control. A backup stays encrypted. Reading it takes the passphrase that was in use when that file was exported. Quiet Pages does not receive or store those files.</p>
+      <h2>Children</h2>
+      <p>Quiet Pages is not directed at children under 13, and it does not knowingly collect personal information from children.</p>
+      <h2>Changes to this policy</h2>
+      <p>If this policy changes, the effective date above will be updated. The previous text is replaced on this page.</p>
+      <h2>Contact</h2>
+      <p>Contact: [contact email placeholder — to be added before publishing]</p>
+    </main>
+  </body>
+</html>
