@@ -12,11 +12,11 @@
     <meta name="apple-mobile-web-app-title" content="QP Demo">
     <meta name="description" content="A private journal kept on this device.">
     <title>Quiet Pages (Demo)</title>
-    <link rel="manifest" href="./manifest.webmanifest?v=3">
-    <link rel="icon" type="image/png" href="./icons/icon-192.png?v=3">
-    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png?v=3">
-    <link rel="stylesheet" href="./css/app.css?v=3">
-    <script type="module" src="./js/app.js?v=3"></script>
+    <link rel="manifest" href="./manifest.webmanifest?v=4">
+    <link rel="icon" type="image/png" href="./icons/icon-192.png?v=4">
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png?v=4">
+    <link rel="stylesheet" href="./css/app.css?v=4">
+    <script type="module" src="./js/app.js?v=4"></script>
   </head>
   <body>
     <noscript><style>#splash{display:none}</style>Quiet Pages needs JavaScript to encrypt and store entries on this device.</noscript>
@@ -135,7 +135,7 @@
       <button id="new-entry" data-testid="new-entry" class="btn btn-primary" type="button">New entry</button>
       <div id="demo-limit-note" data-testid="demo-limit-note" class="limit-note" hidden>
         <p>The demo keeps up to 10 entries. You can still read, edit, delete and export them, and import that backup into the full version.</p>
-        <a id="get-full-link" data-testid="get-full-link" href="#get-full-version">Get the full version</a>
+        <a id="get-full-link" data-testid="get-full-link" href="#get-full-version" target="_blank" rel="noopener">Get the full version</a>
       </div>
       <div id="list-view">
         <div id="entry-list" data-testid="entry-list" class="entry-list"></div>
@@ -324,15 +324,17 @@
         <span class="topbar-end" aria-hidden="true"></span>
       </header>
       <div class="prose">
-        <p>Effective date: [date placeholder]</p>
+        <p>Effective date: October 28, 2026</p>
         <p>Quiet Pages collects no personal data. It has no analytics, ads, or tracking, and it makes no network requests.</p>
         <p>Entries are stored only on your device, in your browser's local storage (IndexedDB), encrypted. We can't see, recover, or delete your entries. There is no account and no server copy.</p>
         <p>Backups are files you control. They stay encrypted, and reading one takes the passphrase used when that file was exported.</p>
         <p>Quiet Pages is not directed at children under 13, and it does not knowingly collect personal information from children.</p>
+        <h2>Where the app is hosted</h2>
+        <p>If you use Quiet Pages on a website that hosts it, such as itch.io, that website's own privacy policy covers the page around the app. Quiet Pages itself still sends nothing.</p>
         <h2>Changes to this policy</h2>
         <p>If this policy changes, the effective date on this page will be updated.</p>
         <h2>Contact</h2>
-        <p>Contact: [contact email placeholder — to be added before publishing]</p>
+        <p>Contact: <a href="mailto:gb-bluewater@mail.grokbot.com">gb-bluewater@mail.grokbot.com</a></p>
       </div>
       <p class="footer">Your entries are encrypted on this device and never uploaded.</p>
     </main>

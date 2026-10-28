@@ -8,7 +8,7 @@ import {
   verifyCheck,
   randomBytes,
   base64ToBytes,
-} from './crypto.js?v=3';
+} from './crypto.js?v=4';
 import {
   isSetup,
   getSetupMeta,
@@ -23,7 +23,7 @@ import {
   getMeta,
   setMeta,
   deleteMeta,
-} from './db.js?v=3';
+} from './db.js?v=4';
 import {
   MOODS,
   showScreen,
@@ -35,9 +35,9 @@ import {
   bindPasswordToggles,
   waitForPaint,
   newEntryId,
-} from './ui.js?v=3';
-import { WEEKDAYS, monthTitle, shiftMonth, countByDate, buildMonthCells } from './calendar.js?v=3';
-import { filterEntries } from './search.js?v=3';
+} from './ui.js?v=4';
+import { WEEKDAYS, monthTitle, shiftMonth, countByDate, buildMonthCells } from './calendar.js?v=4';
+import { filterEntries } from './search.js?v=4';
 import {
   shouldShowBackupBanner,
   backupFilename,
@@ -45,10 +45,10 @@ import {
   buildBackupDocument,
   parseBackupDocument,
   formatImportSummary,
-} from './backup.js?v=3';
-import { normalizeAutoLock, readSettings, writeAutoLockMinutes, writeLastExportAt, writeDismissedAt } from './settings.js?v=3';
-import { createInactivityLock, resolveAutoLockMs } from './autolock.js?v=3';
-import { EDITION, DEMO_ENTRY_LIMIT, FULL_VERSION_URL, APP_VERSION } from './edition.js?v=3';
+} from './backup.js?v=4';
+import { normalizeAutoLock, readSettings, writeAutoLockMinutes, writeLastExportAt, writeDismissedAt } from './settings.js?v=4';
+import { createInactivityLock, resolveAutoLockMs } from './autolock.js?v=4';
+import { EDITION, DEMO_ENTRY_LIMIT, FULL_VERSION_URL, APP_VERSION } from './edition.js?v=4';
 
 let cryptoKey = null;
 let entries = [];
@@ -1373,7 +1373,7 @@ function jumpToday() {
 
 function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return;
-  navigator.serviceWorker.register('./sw.js?v=3', { scope: './' }).catch(() => {});
+  navigator.serviceWorker.register('./sw.js?v=4', { scope: './' }).catch(() => {});
 }
 
 function bindEvents() {

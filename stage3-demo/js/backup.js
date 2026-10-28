@@ -1,4 +1,4 @@
-import { bytesToBase64 } from './crypto.js?v=3';
+import { bytesToBase64 } from './crypto.js?v=4';
 
 const REMINDER_MS = 14 * 24 * 60 * 60 * 1000;
 

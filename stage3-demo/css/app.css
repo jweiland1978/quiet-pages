@@ -945,3 +945,6 @@ textarea {
 @media (max-width: 370px) {
   .topbar .mark { display: none; }
 }
+
+/* Final: mailto links match the app accent */
+a[href^="mailto:"] { color: #5d7c68; }
