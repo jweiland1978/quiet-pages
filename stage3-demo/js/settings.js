@@ -1,4 +1,4 @@
-import { getMeta, setMeta } from './db.js?v=4';
+import { getMeta, setMeta } from './db.js?v=5';
 
 export const AUTOLOCK_CHOICES = [1, 5, 15, 30];
 export const DEFAULT_AUTOLOCK_MINUTES = 5;

@@ -1,4 +1,4 @@
-import { DB_NAME as EDITION_DB_NAME } from './edition.js?v=4';
+import { DB_NAME as EDITION_DB_NAME } from './edition.js?v=5';
 
 export const DB_NAME = EDITION_DB_NAME;
 export const DB_VERSION = 1;
