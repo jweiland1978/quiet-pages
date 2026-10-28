@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#F4EFE6" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1A1917" media="(prefers-color-scheme: dark)">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Quiet Pages">
+    <meta name="description" content="A private journal kept on this device.">
+    <title>Quiet Pages</title>
+    <link rel="manifest" href="./manifest.webmanifest?v=1">
+    <link rel="icon" type="image/png" href="./icons/icon-192.png?v=1">
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png?v=1">
+    <link rel="stylesheet" href="./css/app.css?v=1">
+    <script type="module" src="./js/app.js?v=1"></script>
+  </head>
+  <body>
+    <noscript>Quiet Pages needs JavaScript to encrypt and store entries on this device.</noscript>
+
+    <main id="screen-setup" class="screen" data-screen="setup" hidden>
+      <div class="brand">
+        <svg class="mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+          <rect x="6" y="7" width="20" height="18" rx="3" fill="currentColor" opacity="0.16"/>
+          <rect x="8" y="9" width="16" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.75"/>
+          <path d="M12 9v14" fill="none" stroke="currentColor" stroke-width="1.75"/>
+        </svg>
+        <h1 class="app-name">Quiet Pages</h1>
+      </div>
+      <p class="lede">A private journal kept on this device.</p>
+      <form id="setup-form" class="stack" novalidate>
+        <div class="field">
+          <label for="setup-pass">Passphrase</label>
+          <div class="field-row">
+            <input id="setup-pass" data-testid="setup-pass" name="passphrase" type="password" autocomplete="new-password" minlength="8" required>
+            <button type="button" class="toggle-vis" data-toggle-password="setup-pass" aria-label="Show passphrase">Show</button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="setup-confirm">Confirm passphrase</label>
+          <div class="field-row">
+            <input id="setup-confirm" data-testid="setup-confirm" name="confirm" type="password" autocomplete="new-password" minlength="8" required>
+            <button type="button" class="toggle-vis" data-toggle-password="setup-confirm" aria-label="Show passphrase">Show</button>
+          </div>
+        </div>
+        <div class="warning" role="note">
+          <p>If you forget your passphrase, your entries cannot be recovered. There is no reset and no recovery.</p>
+          <label class="ack-label">
+            <input id="setup-ack" data-testid="setup-ack" type="checkbox">
+            <span>I understand there is no recovery.</span>
+          </label>
+        </div>
+        <p id="setup-error" class="status error" role="status" aria-live="polite"></p>
+        <button id="setup-submit" data-testid="setup-submit" class="btn btn-primary" type="submit" disabled>Create journal</button>
+      </form>
+      <p class="footer">Your entries are encrypted on this device and never uploaded.</p>
+    </main>
+
+    <main id="screen-lock" class="screen" data-screen="lock" hidden>
+      <div class="brand">
+        <svg class="mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+          <rect x="6" y="7" width="20" height="18" rx="3" fill="currentColor" opacity="0.16"/>
+          <rect x="8" y="9" width="16" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.75"/>
+          <path d="M12 9v14" fill="none" stroke="currentColor" stroke-width="1.75"/>
+        </svg>
+        <h1 class="app-name">Quiet Pages</h1>
+      </div>
+      <p class="lede">Enter your passphrase to open your journal.</p>
+      <form id="unlock-form" class="stack" novalidate>
+        <div class="field">
+          <label for="unlock-pass">Passphrase</label>
+          <div class="field-row">
+            <input id="unlock-pass" data-testid="unlock-pass" name="passphrase" type="password" autocomplete="current-password" required>
+            <button type="button" class="toggle-vis" data-toggle-password="unlock-pass" aria-label="Show passphrase">Show</button>
+          </div>
+        </div>
+        <p id="unlock-error" data-testid="unlock-error" class="status error" role="status" aria-live="polite"></p>
+        <button id="unlock-submit" data-testid="unlock-submit" class="btn btn-primary" type="submit">Unlock</button>
+      </form>
+      <p class="footer">Your entries are encrypted on this device and never uploaded.</p>
+    </main>
+
+    <main id="screen-list" class="screen" data-screen="list" hidden>
+      <header class="topbar">
+        <div class="brand">
+          <svg class="mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+            <rect x="6" y="7" width="20" height="18" rx="3" fill="currentColor" opacity="0.16"/>
+            <rect x="8" y="9" width="16" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.75"/>
+            <path d="M12 9v14" fill="none" stroke="currentColor" stroke-width="1.75"/>
+          </svg>
+          <h1 class="app-name">Quiet Pages</h1>
+        </div>
+        <button id="lock-btn" data-testid="lock-btn" class="btn btn-lock" type="button">Lock</button>
+      </header>
+      <button id="new-entry" data-testid="new-entry" class="btn btn-primary" type="button">New entry</button>
+      <div id="entry-list" data-testid="entry-list" class="entry-list"></div>
+      <p class="footer">Your entries are encrypted on this device and never uploaded.</p>
+    </main>
+
+    <main id="screen-editor" class="screen" data-screen="editor" hidden>
+      <header class="topbar">
+        <h1 id="editor-heading" class="app-name">New entry</h1>
+      </header>
+      <form id="editor-form" class="stack" novalidate>
+        <div class="field">
+          <label class="field-label" for="entry-date">Date</label>
+          <input id="entry-date" data-testid="entry-date" name="date" type="date" required>
+        </div>
+        <div class="field">
+          <label class="field-label" for="entry-title">Title</label>
+          <input id="entry-title" data-testid="entry-title" name="title" type="text" maxlength="200" autocomplete="off">
+        </div>
+        <div class="field">
+          <span class="field-label" id="mood-label">Mood</span>
+          <div id="moods" class="moods" role="group" aria-labelledby="mood-label"></div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="entry-body">Entry</label>
+          <textarea id="entry-body" data-testid="entry-body" name="body" rows="10"></textarea>
+        </div>
+        <p id="editor-error" class="status error" role="status" aria-live="polite"></p>
+        <div class="actions">
+          <button id="save-entry" data-testid="save-entry" class="btn btn-primary" type="submit">Save</button>
+          <button id="cancel-entry" data-testid="cancel-entry" class="btn btn-secondary" type="button">Back</button>
+          <button id="delete-entry" data-testid="delete-entry" class="btn btn-ghost" type="button" hidden>Delete</button>
+        </div>
+      </form>
+      <p class="footer">Your entries are encrypted on this device and never uploaded.</p>
+    </main>
+
+    <div id="dialog-delete" class="overlay" hidden>
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="delete-title">
+        <h2 id="delete-title">Delete this entry?</h2>
+        <p>Delete this entry? This can't be undone.</p>
+        <div class="dialog-actions">
+          <button id="confirm-delete" data-testid="confirm-delete" class="btn btn-danger" type="button">Delete</button>
+          <button id="cancel-delete" data-testid="cancel-delete" class="btn btn-secondary" type="button">Keep</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
